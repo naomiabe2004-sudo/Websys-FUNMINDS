@@ -1,0 +1,270 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Baloo 2', cursive;
+}
+
+body{
+  background:#efefef;
+  overflow-x:hidden;
+}
+
+.topbar{
+  width:100%;
+  height:82px;
+  background:#9cd46d;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+
+.topbar h1{
+  font-size:42px;
+  color:#2d6d18;
+  font-weight:600;
+}
+
+.close-btn{
+  position:absolute;
+  left:18px;
+  top:110px;
+  width:72px;
+  height:72px;
+  border-radius:50%;
+  background:#1f7a08;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+
+.close-btn::before,
+.close-btn::after{
+  content:'';
+  position:absolute;
+  width:40px;
+  height:10px;
+  background:white;
+  border-radius:10px;
+}
+
+.close-btn::before{
+  transform:rotate(45deg);
+}
+
+.close-btn::after{
+  transform:rotate(-45deg);
+}
+
+.container{
+  width:100%;
+  padding:40px 40px 80px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.title{
+  font-size:82px;
+  color:#2b8a0f;
+  font-weight:700;
+  text-shadow:4px 4px 0 #2b5f17;
+  margin-bottom:40px;
+}
+
+.achievement-grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:70px 110px;
+  max-width:900px;
+  width:100%;
+  justify-items:center;
+}
+
+.achievement-card{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.achievement-card:hover{
+  transform:translateY(-6px);
+}
+
+.image-box{
+  width:330px;
+  height:240px;
+  border:12px solid #f7a12a;
+  border-radius:18px;
+  background:#cfcfcf;
+  overflow:hidden;
+}
+
+.image-box img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.placeholder-text{
+  color:#777;
+  font-size:28px;
+  font-weight:600;
+}
+
+.label{
+  margin-top:16px;
+  font-size:34px;
+  color:#111;
+  font-weight:700;
+  text-align:center;
+  line-height:1.1;
+}
+
+.certificate-status{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+  font-size:20px;
+  font-weight:700;
+  margin-top:8px;
+}
+
+.certificate-section{
+  width:100%;
+  max-width:900px;
+  margin-top:50px;
+  padding:30px;
+  border-radius:28px;
+  background:#eaf7df;
+  border:4px solid #8cd864;
+}
+
+.certificate-title{
+  font-size:42px;
+  color:#2d6a0f;
+  margin-bottom:18px;
+  text-align:center;
+}
+
+.certificate-card{
+  width:100%;
+  border-radius:24px;
+  background:#f0eded;
+  padding:28px 24px;
+  border:2px solid #79c24a;
+  font-size:22px;
+  color:#3f5c24;
+  text-align:center;
+  line-height:1.5;
+}
+
+/* MODAL */
+
+.certificate-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  opacity:0;
+  pointer-events:none;
+  transition:0.3s;
+  z-index:9999;
+}
+
+.certificate-modal.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.certificate-box{
+  width:min(92%, 760px);
+  background:#f0eded;
+  border:10px solid #f7b733;
+  border-radius:30px;
+  padding:50px 40px;
+  text-align:center;
+  position:relative;
+}
+
+.certificate-box h1{
+  font-size:48px;
+  color:#2d6a0f;
+}
+
+.cert-text{
+  font-size:24px;
+  color:#555;
+  margin-top:16px;
+}
+
+#certificateStudent{
+  font-size:52px;
+  color:#111;
+  margin-top:16px;
+}
+
+#certificateName{
+  font-size:38px;
+  color:#f08c00;
+  margin-top:18px;
+}
+
+.lesson-desc{
+  margin-top:14px;
+  font-size:22px;
+  color:#444;
+}
+
+.medal-box{
+  width:180px;
+  height:180px;
+  margin:30px auto 20px;
+  border-radius:20px;
+  overflow:hidden;
+  background:#ddd;
+}
+
+.medal-box img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.date{
+  margin-top:16px;
+  font-size:22px;
+}
+
+.certificate-close{
+  position:absolute;
+  top:18px;
+  right:18px;
+  width:50px;
+  height:50px;
+  border:none;
+  border-radius:50%;
+  background:#e74c3c;
+  color:white;
+  font-size:24px;
+  cursor:pointer;
+}
+
+@media(max-width:900px){
+
+  .achievement-grid{
+    grid-template-columns:1fr;
+  }
+
+  .title{
+    font-size:58px;
+  }
+
+}

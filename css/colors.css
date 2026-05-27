@@ -1,0 +1,372 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Baloo 2', cursive;
+}
+
+body {
+  background: #efefef;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lesson-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lesson-card {
+  width: 76%;
+  max-width: 1040px;
+  min-height: 620px;
+  background: #dfeeda;
+  border-radius: 34px;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  box-shadow: -14px 14px 0 #b9abab;
+  padding-bottom: 100px;
+  padding-top: 90px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 32px;
+  left: 90px;
+  width: 64px;
+  height: 64px;
+  border: none;
+  border-radius: 50%;
+  background: #9f9f9f;
+  color: white;
+  font-size: 38px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10;
+  transition: 0.2s;
+}
+
+.close-btn:hover {
+  background: #777;
+  transform: scale(1.1);
+}
+
+/* TABS */
+.tabs {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 10;
+}
+
+.tab-btn {
+  padding: 10px 28px;
+  border: none;
+  border-radius: 20px;
+  background: #b8dba8;
+  color: #2d5c17;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+  font-family: 'Baloo 2', cursive;
+}
+
+.tab-btn.active {
+  background: #4b8f2f;
+  color: white;
+}
+
+.tab-btn:hover {
+  transform: scale(1.05);
+}
+
+/* COLOR NAME / SHAPE NAME */
+.color-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#colorName,
+#shapeName {
+  font-size: 140px;
+  color: #4b4f52;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* COLOR DISPLAY */
+.color-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.color-circle {
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: red;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* AUDIO BUTTON */
+.audio-btn {
+  position: absolute;
+  left: 30px;
+  bottom: 28px;
+  width: 90px;
+  height: 90px;
+  border: none;
+  border-radius: 50%;
+  background: #ffc06d;
+  font-size: 38px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.audio-btn:hover {
+  background: #ffad45;
+  transform: scale(1.1);
+}
+
+/* NAV BUTTONS */
+.nav-buttons {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  display: flex;
+  gap: 14px;
+}
+
+.back-btn {
+  width: 76px;
+  height: 76px;
+  border: none;
+  border-radius: 50%;
+  background: #9f9f9f;
+  color: white;
+  font-size: 66px;
+  line-height: 0;
+  cursor: pointer;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s;
+}
+
+.back-btn:hover {
+  background: #777;
+  transform: scale(1.1);
+}
+
+.next-btn {
+  width: 76px;
+  height: 76px;
+  border: none;
+  border-radius: 50%;
+  background: #9f9f9f;
+  color: white;
+  font-size: 66px;
+  line-height: 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s;
+}
+
+.next-btn:hover {
+  background: #777;
+  transform: scale(1.1);
+}
+
+/* COMPLETE BUTTON */
+.complete-btn {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  padding: 14px 40px;
+  border: none;
+  border-radius: 28px;
+  background: #7ed957;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 15px rgba(0,0,0,0.12);
+  transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+  white-space: nowrap;
+  z-index: 5;
+}
+
+.complete-btn:hover {
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.complete-btn.completed {
+  background: #4b7a28;
+  opacity: 0.9;
+  cursor: default;
+}
+
+/* LESSON STATUS */
+.lesson-status {
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 340px;
+  font-size: 14px;
+  color: #3e4b35;
+  text-align: center;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+
+  background: #67b62f;
+  color: white;
+
+  padding: 18px 28px;
+  border-radius: 24px;
+
+  font-size: 22px;
+  font-weight: 700;
+
+  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+
+  z-index: 9999;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+.toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* RESPONSIVE */
+@media(max-width: 1200px) {
+
+  .lesson-card {
+    width: 86%;
+    flex-direction: column;
+    height: auto;
+    padding: 100px 35px 80px;
+    gap: 36px;
+  }
+
+  #colorName,
+  #shapeName {
+    font-size: 100px;
+  }
+
+  .color-circle {
+    width: 280px;
+    height: 280px;
+  }
+
+  .close-btn {
+    left: 24px;
+  }
+
+  .audio-btn {
+    width: 76px;
+    height: 76px;
+    font-size: 32px;
+  }
+
+  .nav-buttons {
+    right: 24px;
+    bottom: 80px;
+    gap: 12px;
+  }
+
+  .back-btn,
+  .next-btn {
+    width: 64px;
+    height: 64px;
+    font-size: 52px;
+  }
+
+}
+
+@media(max-width: 768px) {
+
+  .lesson-card {
+    width: 94%;
+  }
+
+  #colorName,
+  #shapeName {
+    font-size: 70px;
+  }
+
+  .color-circle {
+    width: 190px;
+    height: 190px;
+  }
+
+  .close-btn {
+    left: 16px;
+    top: 16px;
+    width: 58px;
+    height: 58px;
+    font-size: 32px;
+  }
+
+  .audio-btn {
+    width: 64px;
+    height: 64px;
+    font-size: 30px;
+    left: 20px;
+    bottom: 80px;
+  }
+
+  .nav-buttons {
+    right: 18px;
+    bottom: 80px;
+    gap: 10px;
+  }
+
+  .back-btn,
+  .next-btn {
+    width: 58px;
+    height: 58px;
+    font-size: 46px;
+  }
+
+  .toast {
+    width: 90%;
+    font-size: 16px;
+    padding: 14px 18px;
+    text-align: center;
+    bottom: 16px;
+  }
+
+}

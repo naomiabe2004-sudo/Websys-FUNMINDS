@@ -1,0 +1,231 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Baloo 2", cursive;
+}
+
+body {
+  background: #efefef;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lesson-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lesson-card {
+  width: 76%;
+  max-width: 1040px;
+  min-height: 620px;
+  background: #e0f4dc;
+  border-radius: 34px;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  box-shadow: -14px 14px 0 #b9abab;
+  padding-bottom: 100px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 32px;
+  left: 90px;
+  width: 64px;
+  height: 64px;
+  border: none;
+  border-radius: 50%;
+  background: #9f9f9f;
+  color: white;
+  font-size: 38px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10;
+  transition: 0.2s;
+}
+
+.close-btn:hover {
+  background: #777;
+  transform: scale(1.1);
+}
+
+.letter-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#letterDisplay {
+  font-size: 220px;
+  color: #4b4f52;
+  font-weight: 700;
+}
+
+.image-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-placeholder {
+  width: 360px;
+  height: 360px;
+  background: transparent;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.image-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 0;
+}
+
+.audio-btn {
+  position: absolute;
+  left: 30px;
+  bottom: 28px;
+  width: 90px;
+  height: 90px;
+  border: none;
+  border-radius: 50%;
+  background: #ffc06d;
+  font-size: 38px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.audio-btn:hover {
+  background: #ffaa3d;
+  transform: scale(1.1);
+}
+
+.nav-buttons {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  display: flex;
+  gap: 14px;
+}
+
+.back-btn,
+.next-btn {
+  width: 76px;
+  height: 76px;
+  border: none;
+  border-radius: 50%;
+  background: #9f9f9f;
+  color: white;
+  font-size: 66px;
+  line-height: 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s;
+}
+
+.back-btn:hover,
+.next-btn:hover {
+  background: #777;
+  transform: scale(1.1);
+}
+
+.complete-btn {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  padding: 14px 40px;
+  border: none;
+  border-radius: 28px;
+  background: #7ed957;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.lesson-status {
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 340px;
+  font-size: 14px;
+  color: #3e4b35;
+  text-align: center;
+}
+
+/* TOAST */
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+
+  background: #67b62f;
+  color: white;
+
+  padding: 18px 28px;
+  border-radius: 24px;
+
+  font-size: 22px;
+  font-weight: 700;
+
+  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+
+  z-index: 9999;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 768px) {
+
+  .lesson-card {
+    width: 94%;
+  }
+
+  #letterDisplay {
+    font-size: 100px;
+  }
+
+  .image-placeholder {
+    width: 190px;
+    height: 190px;
+  }
+
+  .toast {
+    width: 90%;
+    font-size: 16px;
+    padding: 14px 18px;
+    text-align: center;
+    bottom: 16px;
+  }
+
+}
+

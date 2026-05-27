@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FunMinds - Sentence Completion</title>
+  <link rel="stylesheet" href="css/sentencecompletion.css">
+</head>
+<body>
+
+  <div class="main-container">
+
+    <button class="back-btn" onclick="window.location.href='exercises.html'">&#8592;</button>
+
+    <div class="card">
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <p class="progress-text" id="progressText">1 / 6</p>
+
+      <h1 class="title">Complete the Sentence</h1>
+
+      <p class="sentence" id="sentenceDisplay"></p>
+
+      <div class="choices" id="choicesContainer"></div>
+
+      <div class="result" id="resultDisplay"></div>
+
+      <button class="next-btn" id="nextBtn" onclick="nextQuestion()" style="display:none;">Next ›</button>
+
+    </div>
+
+  </div>
+
+  <script>
+    const questions = [
+      {
+        sentence: "The sun rises in the ___.",
+        choices: ["West", "East", "North", "South"],
+        answer: "East"
+      },
+      {
+        sentence: "A cat has ___ legs.",
+        choices: ["Two", "Six", "Four", "Eight"],
+        answer: "Four"
+      },
+      {
+        sentence: "We drink ___ when we are thirsty.",
+        choices: ["Sand", "Water", "Soil", "Rock"],
+        answer: "Water"
+      },
+      {
+        sentence: "The color of the sky is ___.",
+        choices: ["Green", "Red", "Blue", "Yellow"],
+        answer: "Blue"
+      },
+      {
+        sentence: "A bird uses its ___ to fly.",
+        choices: ["Legs", "Tail", "Wings", "Beak"],
+        answer: "Wings"
+      },
+      {
+        sentence: "We use ___ to write on paper.",
+        choices: ["Spoon", "Pencil", "Fork", "Brush"],
+        answer: "Pencil"
+      },
+    ];
+
+    let currentIndex = 0;
+    let answered = false;
+
+    function loadQuestion() {
+      answered = false;
+
+      const q = questions[currentIndex];
+
+      document.getElementById('sentenceDisplay').textContent = q.sentence;
+      document.getElementById('resultDisplay').textContent = '';
+      document.getElementById('resultDisplay').className = 'result';
+      document.getElementById('nextBtn').style.display = 'none';
+
+      const container = document.getElementById('choicesContainer');
+      container.innerHTML = '';
+
+      q.choices.forEach(choice => {
+        const btn = document.createElement('button');
+        btn.className   = 'choice-btn';
+        btn.textContent = choice;
+        btn.onclick     = () => selectAnswer(btn, choice);
+        container.appendChild(btn);
+      });
+
+      const total = questions.length;
+      document.getElementById('progressText').textContent = `${currentIndex + 1} / ${total}`;
+      document.getElementById('progressFill').style.width = `${((currentIndex + 1) / total) * 100}%`;
+    }
+
+    function selectAnswer(btn, choice) {
+      if (answered) return;
+      answered = true;
+
+      const correct = questions[currentIndex].answer;
+      const allBtns = document.querySelectorAll('.choice-btn');
+
+      allBtns.forEach(b => {
+        b.disabled = true;
+        if (b.textContent === correct) {
+          b.classList.add('correct');
+        }
+      });
+
+      if (choice === correct) {
+        btn.classList.add('correct');
+        document.getElementById('resultDisplay').textContent = '🎉 Correct!';
+        document.getElementById('resultDisplay').classList.add('correct-text');
+      } else {
+        btn.classList.add('wrong');
+        document.getElementById('resultDisplay').textContent = `❌ The answer is: ${correct}`;
+        document.getElementById('resultDisplay').classList.add('wrong-text');
+      }
+
+      document.getElementById('nextBtn').style.display =
+        currentIndex < questions.length - 1 ? 'block' : 'none';
+
+      if (currentIndex === questions.length - 1) {
+        setTimeout(() => {
+          alert('🎉 You finished the exercise!');
+        }, 600);
+      }
+    }
+
+    function nextQuestion() {
+      if (currentIndex < questions.length - 1) {
+        currentIndex++;
+        loadQuestion();
+      }
+    }
+
+    loadQuestion();
+  </script>
+
+</body>
+</html>

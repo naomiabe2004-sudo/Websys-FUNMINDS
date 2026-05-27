@@ -1,0 +1,475 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Baloo 2', cursive;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  background: #efefef;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CONTAINER */
+.lesson-container {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 18px;
+  padding: 20px;
+}
+
+/* LESSON CARD */
+.lesson-card {
+  width: min(1100px, 92%);
+  margin: 0 auto;
+
+  background: #e0f4dc;
+  border-radius: 36px;
+
+  position: relative;
+
+  padding: 28px 42px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 20px;
+
+  box-shadow: -14px 14px 0 #b9abab;
+}
+
+/* CLOSE BUTTON */
+.close-btn {
+  position: fixed;
+
+  top: 30px;
+  left: 30px;
+
+  width: 60px;
+  height: 60px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #9f9f9f;
+  color: white;
+
+  font-size: 28px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  z-index: 10;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: 0.2s;
+}
+
+.close-btn:hover {
+  background: #777;
+  transform: scale(1.05);
+}
+
+/* IMAGE */
+.image-section {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+}
+
+.image-placeholder {
+  width: min(100%, 480px);
+  height: 220px;
+
+  background: #9f9f9f;
+
+  border-radius: 30px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 40px;
+  color: white;
+
+  overflow: hidden;
+}
+
+/* QUESTION */
+.question-section {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+}
+
+#questionText {
+  max-width: 900px;
+
+  font-size: 46px;
+  color: #4b4f52;
+
+  font-weight: 700;
+  text-align: center;
+
+  line-height: 1.1;
+}
+
+/* BOTTOM */
+.bottom-content {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 20px;
+
+  flex-wrap: wrap;
+}
+
+/* AUDIO BUTTON */
+.audio-btn {
+  width: 80px;
+  height: 80px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #ffc06d;
+
+  font-size: 36px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+
+  flex-shrink: 0;
+}
+
+.audio-btn:hover {
+  transform: scale(1.05);
+}
+
+/* CHOICES */
+.choices-container {
+  display: flex;
+
+  gap: 20px;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+  align-items: center;
+
+  flex: 1;
+}
+
+/* OPTION */
+.choice-option {
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+
+  min-width: 240px;
+
+  padding: 14px 20px;
+
+  border: none;
+
+  background: #ffffff;
+
+  border-radius: 28px;
+
+  box-shadow: 0 18px 36px rgba(0,0,0,0.08);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.choice-option:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 22px 40px rgba(0,0,0,0.12);
+}
+
+/* LETTER CIRCLE */
+.choice-letter {
+  width: 80px;
+  height: 80px;
+
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 42px;
+  font-weight: 700;
+
+  line-height: 1;
+
+  color: #4b4f52;
+
+  flex-shrink: 0;
+}
+
+.green {
+  background: #7ddb50;
+}
+
+.orange {
+  background: #ffa32c;
+}
+
+/* CHOICE TEXT */
+.choice-option span {
+  font-size: 34px;
+  font-weight: 700;
+
+  line-height: 1.05;
+
+  color: #4b4f52;
+}
+
+/* ANSWER STATES */
+.correct {
+  outline: 8px solid #22aa22;
+}
+
+.wrong {
+  outline: 8px solid #ff2e2e;
+}
+
+/* NAVIGATION */
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 18px;
+}
+
+.back-btn,
+.next-btn {
+  width: 75px;
+  height: 75px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #9f9f9f;
+  color: white;
+
+  font-size: 48px;
+  line-height: 0;
+
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: 0.2s;
+}
+
+.back-btn {
+  display: none;
+}
+
+.back-btn:hover,
+.next-btn:hover {
+  background: #777;
+  transform: scale(1.05);
+}
+
+/* STATUS */
+.lesson-status {
+  font-size: 20px;
+  font-weight: 700;
+
+  text-align: center;
+
+  min-height: 28px;
+
+  color: #3a8a1c;
+}
+
+/* COMPLETE BUTTON */
+.complete-btn {
+  padding: 14px 40px;
+
+  border: none;
+  border-radius: 28px;
+
+  background: #7ed957;
+  color: white;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow: 0 10px 15px rgba(0,0,0,0.12);
+
+  transition: 0.2s;
+}
+
+.complete-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* TOAST */
+.toast {
+  position: fixed;
+
+  bottom: 30px;
+  left: 50%;
+
+  transform: translateX(-50%) translateY(100px);
+
+  background: linear-gradient(
+    135deg,
+    #69be3c,
+    #3d8c1d
+  );
+
+  color: white;
+
+  padding: 18px 28px;
+
+  border-radius: 18px;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  text-align: center;
+
+  opacity: 0;
+
+  z-index: 9999;
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+
+  box-shadow:
+    0 8px 0 #2d6417,
+    0 14px 28px rgba(0,0,0,0.18);
+}
+
+.toast.visible {
+  opacity: 1;
+
+  transform:
+    translateX(-50%)
+    translateY(0);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+
+  .lesson-card {
+    gap: 16px;
+  }
+
+  .image-placeholder {
+    width: 360px;
+    height: 200px;
+  }
+
+  #questionText {
+    font-size: 38px;
+  }
+
+  .bottom-content {
+    flex-direction: column;
+  }
+
+  .choices-container {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .lesson-card {
+    width: 92%;
+
+    padding: 80px 20px 24px;
+  }
+
+  .image-placeholder {
+    width: 220px;
+    height: 160px;
+
+    font-size: 28px;
+  }
+
+  #questionText {
+    font-size: 28px;
+  }
+
+  .choice-letter {
+    width: 60px;
+    height: 60px;
+
+    font-size: 32px;
+  }
+
+  .choice-option span {
+    font-size: 26px;
+  }
+
+  .audio-btn {
+    width: 64px;
+    height: 64px;
+
+    font-size: 28px;
+  }
+
+  .back-btn,
+  .next-btn {
+    width: 60px;
+    height: 60px;
+
+    font-size: 46px;
+  }
+
+  .close-btn {
+    top: 16px;
+    left: 16px;
+
+    width: 50px;
+    height: 50px;
+
+    font-size: 26px;
+  }
+
+  .toast {
+    width: 90%;
+
+    font-size: 15px;
+  }
+}

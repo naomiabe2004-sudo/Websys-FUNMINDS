@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parents Guidance</title>
+  <link rel="stylesheet" href="css/intros.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="intro-header intro-header--yellow"></header>
+  <div class="intro-content">
+    <div class="intro-image">
+      <img src="parents.png" alt="Parents Guidance Image" />
+    </div>
+    <p class="intro-text">Parents Guidance</p>
+    <p class="intro-description">
+      This website is built for children ages 5–8. We encourage parents or guardians to guide young learners while exploring reading activities, sounds, and games.
+    </p>
+    <ul class="intro-bullets">
+      <li>Safe Learning</li>
+      <li>Fun Reading Practice</li>
+    </ul>
+    <button class="intro-btn" onclick="agreeAndLogin()">Agree</button>
+  </div>
+  <script>
+    function agreeAndLogin() {
+      const accounts = JSON.parse(localStorage.getItem("accounts") || "{}");
+      const users = Object.keys(accounts);
+      if (users.length > 0) {
+        localStorage.setItem("loggedInUser", users[users.length - 1]);
+      }
+      window.location.href = "dashboard.html";
+    }
+  </script>
+</body>
+</html>

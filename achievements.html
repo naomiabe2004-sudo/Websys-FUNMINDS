@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>
+    FunMinds - Achievements
+  </title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="css/achievements.css"
+  >
+
+</head>
+
+<body>
+
+  <div class="topbar">
+    <h1>FunMinds</h1>
+  </div>
+
+  <div class="close-btn"
+    title="Back to dashboard"
+    onclick="window.location.href='dashboard.html'">
+  </div>
+
+  <div class="container">
+
+    <div class="title">
+      Achievements
+    </div>
+
+    <div
+      class="achievement-grid"
+      id="achievementGrid">
+    </div>
+
+    <section class="certificate-section">
+
+      <div class="certificate-title">
+        Certificates
+      </div>
+
+      <div
+        id="certificateSummary"
+        class="certificate-card">
+        Loading certificate progress...
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- CERTIFICATE MODAL -->
+
+  <div
+    class="certificate-modal"
+    id="certificateModal">
+
+    <div class="certificate-box">
+
+      <button
+        class="certificate-close"
+        onclick="closeCertificate()">
+        ✕
+      </button>
+
+      <h1>Certificate of Achievement</h1>
+
+      <p class="cert-text">
+        This certificate is proudly presented to
+      </p>
+
+      <h2 id="certificateStudent">
+        Student Name
+      </h2>
+
+      <p class="cert-text">
+        for successfully completing
+      </p>
+
+      <h3 id="certificateName">
+        Certificate Name
+      </h3>
+
+      <p
+        id="certificateLesson"
+        class="lesson-desc">
+        Lesson Description
+      </p>
+
+      <div class="medal-box">
+        <img
+          id="certificateImage"
+          src="achievements.photo/my-certificate.png"
+          alt="Certificate"
+        >
+      </div>
+
+      <p class="date">
+        Date:
+        <span id="certificateDate"></span>
+      </p>
+
+    </div>
+
+  </div>
+
+  <script src="js/achievements.js"></script>
+
+</body>
+</html>

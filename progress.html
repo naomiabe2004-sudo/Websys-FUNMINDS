@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FunMinds - Progress</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/progress.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <h1>FunMinds</h1>
+  </header>
+
+  <div class="close-btn" title="Back to dashboard"></div>
+
+  <h2 class="page-title">My Progress</h2>
+
+  <section class="user-card">
+    <div class="user-left">
+      <div class="user-image">
+        <img src="progressphoto.png" alt="Profile Photo">
+      </div>
+      <h1 id="username">Username</h1>
+    </div>
+    <div class="overall-status">
+      <div class="status-text">Overall<br>Status</div>
+      <div id="overallCircle" class="progress-circle" style="--progress: 0;">
+        <span>0%</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="progress-container">
+
+    <div class="progress-card">
+      <div id="alphabetCircle" class="progress-circle large" style="--progress: 0;">
+        <span>0%</span>
+      </div>
+      <div class="lesson-info">
+        <h3 id="alphabetLabel">Alphabet</h3>
+        <p id="alphabetDescription">Lesson 1: Learn the Alphabet</p>
+      </div>
+    </div>
+
+    <div class="progress-card">
+      <div id="colorsCircle" class="progress-circle large" style="--progress: 0;">
+        <span>0%</span>
+      </div>
+      <div class="lesson-info">
+        <h3 id="colorsLabel">Colors</h3>
+        <p id="colorsDescription">Lesson 2: Exploring Colors</p>
+      </div>
+    </div>
+
+    <div class="progress-card">
+      <div id="phonicsCircle" class="progress-circle large" style="--progress: 0;">
+        <span>0%</span>
+      </div>
+      <div class="lesson-info">
+        <h3 id="phonicsLabel">Phonics</h3>
+        <p id="phonicsDescription">Lesson 3: Fill it in!</p>
+      </div>
+    </div>
+
+    <div class="progress-card">
+      <div id="readingCircle" class="progress-circle large" style="--progress: 0;">
+        <span>0%</span>
+      </div>
+      <div class="lesson-info">
+        <h3 id="readingLabel">Reading</h3>
+        <p id="readingDescription">Lesson 4: Let's be attentive!</p>
+      </div>
+    </div>
+
+  </section>
+
+  <script>
+    document.querySelector('.close-btn').addEventListener('click', () => {
+      window.location.href = 'dashboard.html';
+    });
+  </script>
+  <script src="js/progress-page.js"></script>
+
+</body>
+</html>

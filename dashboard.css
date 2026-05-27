@@ -1,0 +1,134 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ─── HEADER ─── */
+.header {
+    width: 100%;
+    height: 80px;
+    background: #95d36c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.logo {
+    font-size: 38px;
+    font-weight: 500;
+    color: #245400;
+}
+
+/* ─── MAIN LAYOUT ─── */
+.main-container {
+    width: 100%;
+    height: calc(100vh - 80px);
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    overflow: hidden;
+}
+
+/* ─── LESSON GRID ─── */
+.lesson-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 320px);
+    grid-template-rows: repeat(2, auto);
+    column-gap: 70px;
+    row-gap: 45px;
+    justify-content: center;
+    align-items: start;
+}
+
+.lesson-card {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lesson-card:hover {
+    transform: scale(1.03);
+}
+
+.image-placeholder {
+    width: 320px;
+    height: 200px;
+    border: 10px solid #f8a12c;
+    border-radius: 18px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #999;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.lesson-card h2 {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    color: black;
+    line-height: 1.3;
+}
+
+/* ─── BOTTOM BUTTONS ─── */
+.bottom-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 35px;
+}
+
+.side-card {
+    width: 160px;
+    height: 80px;
+    border: none;
+    border-radius: 20px;
+    background: #9bd66f;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.side-card:hover {
+    transform: scale(1.05);
+}
+
+.side-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #2d5c17;
+}
+
+/* ─── IMAGE FIT INSIDE PLACEHOLDER ─── */
+.image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}

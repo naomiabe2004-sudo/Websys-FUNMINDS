@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Colors & Shapes Lesson</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="css/colors.css">
+  <link rel="stylesheet" href="css/progress.css">
+
+</head>
+
+<body data-lesson-id="colors">
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">
+    🌈 Colors & Shapes Master unlocked! See it on the Achievements page.
+  </div>
+
+  <div class="lesson-container">
+
+    <button
+      class="close-btn"
+      onclick="window.location.href='dashboard.html'">
+      ✕
+    </button>
+
+    <div class="lesson-card">
+
+      <!-- TABS -->
+      <div class="tabs">
+
+        <button
+          class="tab-btn active"
+          id="tabColors"
+          onclick="switchTab('colors')">
+          🎨 Colors
+        </button>
+
+        <button
+          class="tab-btn"
+          id="tabShapes"
+          onclick="switchTab('shapes')">
+          🔷 Shapes
+        </button>
+
+      </div>
+
+      <!-- COLORS -->
+      <div id="colorsSection">
+
+        <div class="color-section">
+          <h1 id="colorName">Red</h1>
+        </div>
+
+        <div class="color-display">
+          <div
+            class="color-circle"
+            id="colorCircle">
+          </div>
+        </div>
+
+        <button
+          class="audio-btn"
+          onclick="playColorSound()">
+          🔊
+        </button>
+
+        <div class="nav-buttons">
+
+          <button
+            class="back-btn"
+            id="colorBackBtn"
+            onclick="previousColor()">
+            ‹
+          </button>
+
+          <button
+            class="next-btn"
+            onclick="nextColor()">
+            ›
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- SHAPES -->
+      <div id="shapesSection" style="display:none;">
+
+        <div class="color-section">
+          <h1 id="shapeName">Circle</h1>
+        </div>
+
+        <div class="color-display">
+          <div id="shapeDisplay"></div>
+        </div>
+
+        <button
+          class="audio-btn"
+          onclick="playShapeSound()">
+          🔊
+        </button>
+
+        <div class="nav-buttons">
+
+          <button
+            class="back-btn"
+            id="shapeBackBtn"
+            onclick="previousShape()">
+            ‹
+          </button>
+
+          <button
+            class="next-btn"
+            onclick="nextShape()">
+            ›
+          </button>
+
+        </div>
+
+      </div>
+
+      <button
+        class="complete-btn"
+        id="completeLessonBtn"
+        style="display:none;"
+        onclick="showToast()">
+        Complete Lesson
+      </button>
+
+      <p class="lesson-status" id="lessonStatus"></p>
+
+    </div>
+
+  </div>
+
+  <script src="js/progress.js"></script>
+
+  <script>
+
+    // COLORS DATA
+    const colorsData = [
+
+      {
+        name: "Red",
+        color: "#e0001a",
+        audio: "audio.colors/red.mp3"
+      },
+
+      {
+        name: "Blue",
+        color: "#267dff",
+        audio: "audio.colors/Blue.mp3"
+      },
+
+      {
+        name: "Green",
+        color: "#39b54a",
+        audio: "audio.colors/Green.mp3"
+      },
+
+      {
+        name: "Yellow",
+        color: "#ffd633",
+        audio: "audio.colors/Yellow.mp3"
+      },
+
+      {
+        name: "Orange",
+        color: "#ff6b00",
+        audio: "audio.colors/Orange.mp3"
+      },
+
+      {
+        name: "Purple",
+        color: "#8b00ff",
+        audio: "audio.colors/Purple.mp3"
+      },
+
+      {
+        name: "Pink",
+        color: "#ff69b4",
+        audio: "audio.colors/Pink.mp3"
+      },
+
+      {
+        name: "Brown",
+        color: "#8b4513",
+        audio: "audio.colors/Brown.mp3"
+      },
+
+      {
+        name: "Black",
+        color: "#000000",
+        audio: "audio.colors/Black.mp3"
+      },
+
+      {
+        name: "White",
+        color: "#f0f0f0",
+        audio: "audio.colors/White.mp3"
+      }
+
+    ];
+
+    // SHAPES DATA
+    const shapesData = [
+
+      {
+        name: "Circle",
+        shape: "circle",
+        audio: "audio.colors/Circle.mp3"
+      },
+
+      {
+        name: "Square",
+        shape: "square",
+        audio: "audio.colors/Square.mp3"
+      },
+
+      {
+        name: "Triangle",
+        shape: "triangle",
+        audio: "audio.colors/Triangle.mp3"
+      },
+
+      {
+        name: "Rectangle",
+        shape: "rectangle",
+        audio: "audio.colors/Rectangle.mp3"
+      },
+
+      {
+        name: "Star",
+        shape: "star",
+        audio: "audio.colors/Star.mp3"
+      },
+
+      {
+        name: "Heart",
+        shape: "heart",
+        audio: "audio.colors/Heart.mp3"
+      },
+
+      {
+        name: "Diamond",
+        shape: "diamond",
+        audio: "audio.colors/Diamond.mp3"
+      },
+
+      {
+        name: "Oval",
+        shape: "oval",
+        audio: "audio.colors/Oval.mp3"
+      }
+
+    ];
+
+    let colorIndex = 0;
+    let shapeIndex = 0;
+    let currentTab = 'colors';
+
+    function updateColor() {
+
+      document.getElementById("colorName").textContent =
+        colorsData[colorIndex].name;
+
+      document.getElementById("colorCircle").style.background =
+        colorsData[colorIndex].color;
+
+      document.getElementById("colorBackBtn").style.display =
+        colorIndex > 0 ? "flex" : "none";
+
+      checkComplete();
+    }
+
+    function nextColor() {
+
+      if(colorIndex < colorsData.length - 1){
+
+        colorIndex++;
+
+        updateColor();
+      }
+    }
+
+    function previousColor() {
+
+      if(colorIndex > 0){
+
+        colorIndex--;
+
+        updateColor();
+      }
+    }
+
+    function playColorSound() {
+
+      const audio = new Audio(
+        colorsData[colorIndex].audio
+      );
+
+      audio.play();
+    }
+
+    function getShapeSVG(shape) {
+
+      const color = "#4b8f2f";
+
+      switch(shape){
+
+        case 'circle':
+          return `
+            <svg width="220" height="220" viewBox="0 0 220 220">
+              <circle cx="110" cy="110" r="100" fill="${color}"/>
+            </svg>
+          `;
+
+        default:
+          return '';
+
+      }
+    }
+
+    function updateShape() {
+
+      document.getElementById("shapeName").textContent =
+        shapesData[shapeIndex].name;
+
+      document.getElementById("shapeDisplay").innerHTML =
+        getShapeSVG(shapesData[shapeIndex].shape);
+
+      document.getElementById("shapeBackBtn").style.display =
+        shapeIndex > 0 ? "flex" : "none";
+
+      checkComplete();
+    }
+
+    function nextShape() {
+
+      if(shapeIndex < shapesData.length - 1){
+
+        shapeIndex++;
+
+        updateShape();
+      }
+    }
+
+    function previousShape() {
+
+      if(shapeIndex > 0){
+
+        shapeIndex--;
+
+        updateShape();
+      }
+    }
+
+    function playShapeSound() {
+
+      const audio = new Audio(
+        shapesData[shapeIndex].audio
+      );
+
+      audio.play();
+    }
+
+    function switchTab(tab) {
+
+      currentTab = tab;
+
+      document.getElementById('colorsSection').style.display =
+        tab === 'colors' ? 'contents' : 'none';
+
+      document.getElementById('shapesSection').style.display =
+        tab === 'shapes' ? 'contents' : 'none';
+
+      document.getElementById('tabColors').classList.toggle(
+        'active',
+        tab === 'colors'
+      );
+
+      document.getElementById('tabShapes').classList.toggle(
+        'active',
+        tab === 'shapes'
+      );
+
+      checkComplete();
+    }
+
+    function checkComplete() {
+
+      const isLastColor =
+        currentTab === 'colors' &&
+        colorIndex === colorsData.length - 1;
+
+      const isLastShape =
+        currentTab === 'shapes' &&
+        shapeIndex === shapesData.length - 1;
+
+      document.getElementById("completeLessonBtn").style.display =
+        (isLastColor || isLastShape)
+          ? "inline-block"
+          : "none";
+    }
+
+    /* TOAST */
+
+    function showToast() {
+
+      const toast = document.getElementById("toast");
+
+      toast.classList.add("visible");
+
+      setTimeout(() => {
+        toast.classList.remove("visible");
+      }, 3000);
+
+    }
+
+    // START
+    updateColor();
+    updateShape();
+
+  </script>
+
+</body>
+</html>

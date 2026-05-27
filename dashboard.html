@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FunMinds Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <style>
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 32px;
+        }
+
+        .logout-btn {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 24px;
+            background: #d9534f;
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 4px 0 #a8302c;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .logout-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #a8302c;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <h1 class="logo">FunMinds</h1>
+        <button class="logout-btn" onclick="logout()">Log Out</button>
+    </header>
+
+    <!-- MAIN -->
+    <main class="main-container">
+
+        <!-- CENTER: Lesson Grid -->
+        <section class="lesson-grid">
+
+            <button class="lesson-card" onclick="window.location.href='alphabet1.html'">
+                <div class="image-placeholder">
+                    <img src="lessons.photo/alphabet.png" alt="Alphabet">
+                </div>
+                <h2>Alphabet</h2>
+            </button>
+
+            <button class="lesson-card" onclick="window.location.href='colors1.html'">
+                <div class="image-placeholder">
+                    <img src="lessons.photo/colorsshape.png" alt="Colors and Shapes">
+                </div>
+                <h2>Colors</h2>
+            </button>
+
+            <button class="lesson-card" onclick="window.location.href='phonics1.html'">
+                <div class="image-placeholder">
+                    <img src="lessons.photo/phonics.png" alt="Phonics">
+                </div>
+                <h2>Phonics</h2>
+            </button>
+
+            <button class="lesson-card" onclick="window.location.href='reading1.html'">
+                <div class="image-placeholder">
+                    <img src="lessons.photo/reading.png" alt="Reading and Understanding">
+                </div>
+                <h2>Reading and Understanding</h2>
+            </button>
+
+        </section>
+
+        <!-- BOTTOM: Buttons -->
+        <div class="bottom-buttons">
+
+            <button class="side-card" onclick="window.location.href='achievements.html'">
+                <div class="side-placeholder">Achievement</div>
+            </button>
+
+            <button class="side-card" onclick="window.location.href='progress.html'">
+                <div class="side-placeholder">Progress / Profile</div>
+            </button>
+
+        </div>
+
+    </main>
+
+    <script>
+        if (!localStorage.getItem("loggedInUser")) {
+            window.location.href = "login.html";
+        }
+
+        function logout() {
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "index.html";
+        }
+    </script>
+
+</body>
+</html>

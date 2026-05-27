@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    Reading Lesson
+  </title>
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="css/reading.css"
+  >
+
+</head>
+
+<body data-lesson-id="reading">
+
+  <!-- TOAST -->
+
+  <div
+    class="toast"
+    id="toast"
+  >
+
+    📖 Reading Master unlocked!
+
+  </div>
+
+
+  <!-- CONTAINER -->
+
+  <div class="lesson-container">
+
+    <!-- CLOSE -->
+
+    <button
+      class="close-btn"
+      onclick="window.location.href='dashboard.html'"
+    >
+
+      ✕
+
+    </button>
+
+
+    <!-- CARD -->
+
+    <div class="lesson-card">
+
+      <!-- IMAGE -->
+
+      <div class="image-section">
+
+        <div class="image-placeholder">
+
+          <img
+            id="questionImage"
+            src=""
+            alt=""
+            style="
+              display:none;
+              width:100%;
+              height:100%;
+              object-fit:cover;
+              border-radius:22px;
+            "
+          >
+
+          <span id="imagePlaceholder">
+
+            image
+
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- QUESTION -->
+
+      <div class="question-section">
+
+        <h1 id="questionText">
+
+          The cat is playing with a _____
+
+        </h1>
+
+      </div>
+
+
+      <!-- BOTTOM -->
+
+      <div class="bottom-content">
+
+        <!-- AUDIO -->
+
+        <button class="audio-btn">
+
+          🔊
+
+        </button>
+
+
+        <!-- CHOICES -->
+
+        <div class="choices-container">
+
+          <button
+            class="choice-option"
+            onclick="checkAnswer('A')"
+          >
+
+            <div class="choice-letter green">
+
+              A
+
+            </div>
+
+            <span id="choiceAText">
+
+              Toy
+
+            </span>
+
+          </button>
+
+
+          <button
+            class="choice-option"
+            onclick="checkAnswer('B')"
+          >
+
+            <div class="choice-letter orange">
+
+              B
+
+            </div>
+
+            <span id="choiceBText">
+
+              Apple
+
+            </span>
+
+          </button>
+
+        </div>
+
+
+        <!-- NAV -->
+
+        <div class="nav-buttons">
+
+          <button
+            class="back-btn"
+            onclick="previousQuestion()"
+          >
+
+            ‹
+
+          </button>
+
+          <button
+            class="next-btn"
+            onclick="nextQuestion()"
+          >
+
+            ›
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- STATUS -->
+
+    <div
+      id="lessonStatus"
+      class="lesson-status"
+    ></div>
+
+
+    <!-- COMPLETE -->
+
+    <button
+      id="completeLessonBtn"
+      class="complete-btn"
+      style="display:none;"
+      onclick="completeLesson()"
+    >
+
+      Complete Lesson
+
+    </button>
+
+  </div>
+
+
+  <script>
+
+    // =========================================
+    // LESSONS
+    // =========================================
+
+    const lessons = [
+
+      // =====================================
+      // LESSON 1
+      // =====================================
+
+      [
+
+        {
+          question: "The cat is playing with a _____",
+          choiceA: "Toy",
+          choiceB: "Apple",
+          answer: "A",
+          image: "reading.photos/catplaying.png",
+          audio: "audio.lesson1to5/Q1-L1_The cat is playing with a.m4a"
+        },
+
+        {
+          question: "The dog is chasing a _____",
+          choiceA: "Ball",
+          choiceB: "Chair",
+          answer: "A",
+          image: "reading.photos/dogandball.png",
+          audio: "audio.lesson1to5/Q2-L1_The dog is chasing a.m4a"
+        },
+
+        {
+          question: "I drink water from a _____",
+          choiceA: "Cup",
+          choiceB: "Shoe",
+          answer: "A",
+          image: "reading.photos/cup.png",
+          audio: "audio.lesson1to5/Q3-L1_I drink water from a.m4a"
+        },
+
+        {
+          question: "The baby is _____",
+          choiceA: "Sleeping",
+          choiceB: "Running",
+          answer: "A",
+          image: "reading.photos/sleeping.png",
+          audio: "audio.lesson1to5/Q4-L1_The baby is.m4a"
+        },
+
+        {
+          question: "We read books in a _____",
+          choiceA: "Library",
+          choiceB: "Bathroom",
+          answer: "A",
+          image: "reading.photos/library.png",
+          audio: "audio.lesson1to5/Q5-L1_We read books in a.m4a"
+        }
+
+      ],
+
+
+      // =====================================
+      // LESSON 2
+      // =====================================
+
+      [
+
+        {
+          question: "The boy is smiling because he got a gift.",
+          choiceA: "Sad",
+          choiceB: "Happy",
+          answer: "B",
+          image: "reading.photos/happy.png",
+          audio: "audio.lesson1to5/Q1-L2_The boy is smiling because he got a gift.m4a"
+        },
+
+        {
+          question: "The room was quiet during the test.",
+          choiceA: "Noisy",
+          choiceB: "Silent",
+          answer: "B",
+          image: "reading.photos/silent.png",
+          audio: "audio.lesson1to5/Q2-L2_The room was quiet during the test.m4a"
+        },
+
+        {
+          question: "The soup is warm.",
+          choiceA: "Hot",
+          choiceB: "Cold",
+          answer: "A",
+          image: "reading.photos/soup.png",
+          audio: "audio.lesson1to5/Q3-L2_The soup is warm.m4a"
+        },
+
+        {
+          question: "The flower is pretty.",
+          choiceA: "Beautiful",
+          choiceB: "Ugly",
+          answer: "A",
+          image: "reading.photos/flower.png",
+          audio: "audio.lesson1to5/Q4-L2_The flower is pretty.m4a"
+        },
+
+        {
+          question: "The puppy is little.",
+          choiceA: "Small",
+          choiceB: "Huge",
+          answer: "A",
+          image: "reading.photos/smalldog.png",
+          audio: "audio.lesson1to5/Q5-L2_The puppy is little.m4a"
+        }
+
+      ],
+
+
+      // =====================================
+      // LESSON 3
+      // =====================================
+
+      [
+
+        {
+          question: "Ana has a red ball. What color is the ball?",
+          choiceA: "Red",
+          choiceB: "Blue",
+          answer: "A",
+          image: "reading.photos/redball.png",
+          audio: "audio.lesson1to5/Q1-L3_Ana has a red ball.m4a"
+        },
+
+        {
+          question: "Tom has two apples. How many apples does Tom have?",
+          choiceA: "Two",
+          choiceB: "Four",
+          answer: "A",
+          image: "reading.photos/twoapple.png",
+          audio: "audio.lesson1to5/Q2-L3_Tom has two apples.m4a"
+        },
+
+        {
+          question: "Fish swims in the water. Where does the fish swim?",
+          choiceA: "In the water",
+          choiceB: "In the tree",
+          answer: "A",
+          image: "reading.photos/waterfish.png",
+          audio: "audio.lesson1to5/Q3-L3_Fish swims in the water.m4a"
+        },
+
+        {
+          question: "The girl is reading a story. What is the girl doing?",
+          choiceA: "Reading",
+          choiceB: "Running",
+          answer: "A",
+          image: "reading.photos/girlreading.png",
+          audio: "audio.lesson1to5/Q4-L3_The girl is reading a story.m4a"
+        },
+
+        {
+          question: "The boy is brushing his teeth. What is he doing?",
+          choiceA: "Brushing his teeth",
+          choiceB: "Brushing his hair",
+          answer: "A",
+          image: "reading.photos/boybrushing.png",
+          audio: "audio.lesson1to5/Q5-L3_The boy is brushing his teeth.m4a"
+        }
+
+      ],
+
+
+      // =====================================
+      // LESSON 4
+      // =====================================
+
+      [
+
+        {
+          question: "The cow says _____",
+          choiceA: "Moo",
+          choiceB: "Meow",
+          answer: "A",
+          image: "reading.photos/cow.png",
+          audio: "audio.lesson1to5/Q1-L4_The cow says.m4a"
+        },
+
+        {
+          question: "The cat says _____",
+          choiceA: "Meow",
+          choiceB: "Bark",
+          answer: "A",
+          image: "reading.photos/cat.png",
+          audio: "audio.lesson1to5/Q2-L4_The cat says.m4a"
+        },
+
+        {
+          question: "The duck says _____",
+          choiceA: "Quack",
+          choiceB: "Roar",
+          answer: "A",
+          image: "reading.photos/duck.png",
+          audio: "audio.lesson1to5/Q3-L4_The duck says.m4a"
+        },
+
+        {
+          question: "The lion says _____",
+          choiceA: "Roar",
+          choiceB: "Chirp",
+          answer: "A",
+          image: "reading.photos/lion.png",
+          audio: "audio.lesson1to5/Q4-L4_The lion says.m4a"
+        },
+
+        {
+          question: "The bird says _____",
+          choiceA: "Tweet",
+          choiceB: "Moo",
+          answer: "A",
+          image: "reading.photos/bird.png",
+          audio: "audio.lesson1to5/Q5-L4_The bird says.m4a"
+        }
+
+      ],
+
+
+      // =====================================
+      // LESSON 5
+      // =====================================
+
+      [
+
+        {
+          question: "It started to rain, so we used an _____",
+          choiceA: "Umbrella",
+          choiceB: "Apple",
+          answer: "A",
+          image: "reading.photos/umbrella.png",
+          audio: "audio.lessons1to5/Q1-L5_It started to rain, so we used an.m4a"
+        },
+
+        {
+          question: "The boy was hungry, so he ate a _____",
+          choiceA: "Sandwich",
+          choiceB: "Pillow",
+          answer: "A",
+          image: "reading.photos/bread.png",
+          audio: "audio.lessons1to5/Q2-L5_The boy was hungry.m4a"
+        },
+
+        {
+          question: "The light went out, so we used a _____",
+          choiceA: "Flashlight",
+          choiceB: "Spoon",
+          answer: "A",
+          image: "reading.photos/dark.png",
+          audio: "audio.lessons1to5/Q2-L5_The boy was hungry.m4a"
+        },
+
+        {
+          question: "The cat saw a mouse and _____",
+          choiceA: "Chased it",
+          choiceB: "Read it",
+          answer: "A",
+          image: "reading.photos/mouse.png",
+          audio: "audio.lessons1to5/Q4-L5_The cat saw a mouse and.m4a"
+        },
+
+        {
+          question: "The children were tired, so they went to _____",
+          choiceA: "Sleep",
+          choiceB: "Dance",
+          answer: "A",
+          image: "reading.photos/tired.png",
+          audio: "audio.lessons1to5/Q5-L5_The children were tired.m4a"
+        }
+
+      ]
+
+    ];
+
+
+    // =========================================
+    // VARIABLES
+    // =========================================
+
+    let currentLesson = 0;
+    let currentQuestion = 0;
+    let locked = false;
+
+    const questionText =
+      document.getElementById("questionText");
+
+    const choiceAText =
+      document.getElementById("choiceAText");
+
+    const choiceBText =
+      document.getElementById("choiceBText");
+
+    const backBtn =
+      document.querySelector(".back-btn");
+
+    const choiceButtons =
+      document.querySelectorAll(".choice-option");
+
+    const questionImage =
+      document.getElementById("questionImage");
+
+    const imagePlaceholder =
+      document.getElementById("imagePlaceholder");
+
+    const lessonStatus =
+      document.getElementById("lessonStatus");
+
+    const completeLessonBtn =
+      document.getElementById("completeLessonBtn");
+
+    const audioBtn =
+      document.querySelector(".audio-btn");
+
+
+    // =========================================
+    // AUDIO
+    // =========================================
+
+    audioBtn.addEventListener("click", () => {
+
+      const q =
+        lessons[currentLesson][currentQuestion];
+
+      if (q.audio) {
+
+        const audio =
+          new Audio(q.audio);
+
+        audio.play();
+
+      }
+
+    });
+
+
+    // =========================================
+    // TOAST
+    // =========================================
+
+    function showToast() {
+
+      const toast =
+        document.getElementById("toast");
+
+      toast.classList.add("visible");
+
+      setTimeout(() => {
+
+        toast.classList.remove("visible");
+
+      }, 3000);
+
+    }
+
+
+    // =========================================
+    // SAVE PROGRESS
+    // =========================================
+
+    function saveProgress() {
+
+      const currentUser =
+        localStorage.getItem("loggedInUser");
+
+      if (!currentUser) return;
+
+      const progressData =
+        JSON.parse(
+          localStorage.getItem("funmindsProgress") || "{}"
+        );
+
+      if (!progressData[currentUser]) {
+
+        progressData[currentUser] = {
+
+          lessons: {
+            alphabet: false,
+            colors: false,
+            phonics: false,
+            reading: false
+          },
+
+          lastUnlocked: null
+
+        };
+
+      }
+
+      progressData[currentUser]
+        .lessons["reading"] = true;
+
+      progressData[currentUser]
+        .lastUnlocked = "reading";
+
+      localStorage.setItem(
+        "funmindsProgress",
+        JSON.stringify(progressData)
+      );
+
+    }
+
+
+    // =========================================
+    // COMPLETE LESSON
+    // =========================================
+
+    function completeLesson() {
+
+      saveProgress();
+
+      showToast();
+
+      setTimeout(() => {
+
+        window.location.href =
+          "dashboard.html";
+
+      }, 3500);
+
+    }
+
+
+    // =========================================
+    // UPDATE QUESTION
+    // =========================================
+
+    function updateQuestion() {
+
+      const q =
+        lessons[currentLesson][currentQuestion];
+
+      questionText.textContent =
+        q.question;
+
+      choiceAText.textContent =
+        q.choiceA;
+
+      choiceBText.textContent =
+        q.choiceB;
+
+      if (q.image) {
+
+        questionImage.src =
+          q.image;
+
+        questionImage.style.display =
+          "block";
+
+        imagePlaceholder.style.display =
+          "none";
+
+      }
+
+      else {
+
+        questionImage.style.display =
+          "none";
+
+        imagePlaceholder.style.display =
+          "block";
+
+      }
+
+      locked = false;
+
+      lessonStatus.textContent =
+        `Lesson ${currentLesson + 1}`;
+
+      lessonStatus.style.color =
+        "#3a8a1c";
+
+      completeLessonBtn.style.display =
+        "none";
+
+      choiceButtons.forEach(btn => {
+
+        btn.classList.remove(
+          "correct",
+          "wrong"
+        );
+
+        btn.style.opacity = "1";
+
+        btn.style.pointerEvents =
+          "auto";
+
+      });
+
+      backBtn.style.display =
+        currentQuestion > 0
+          ? "flex"
+          : "none";
+
+    }
+
+
+    // =========================================
+    // CHECK ANSWER
+    // =========================================
+
+    function checkAnswer(letter) {
+
+      if (locked) return;
+
+      const correct =
+        lessons[currentLesson][currentQuestion].answer;
+
+      choiceButtons.forEach(btn =>
+        btn.classList.remove(
+          "correct",
+          "wrong"
+        )
+      );
+
+      if (letter === "A") {
+
+        choiceButtons[0].classList.add(
+          correct === "A"
+            ? "correct"
+            : "wrong"
+        );
+
+      }
+
+      else {
+
+        choiceButtons[1].classList.add(
+          correct === "B"
+            ? "correct"
+            : "wrong"
+        );
+
+      }
+
+      if (letter === correct) {
+
+        lessonStatus.textContent =
+          "✓ Correct!";
+
+        lessonStatus.style.color =
+          "#3a8a1c";
+
+        locked = true;
+
+        choiceButtons.forEach(btn => {
+
+          btn.style.pointerEvents =
+            "none";
+
+          btn.style.opacity =
+            "0.5";
+
+        });
+
+        const correctBtn =
+          letter === "A"
+            ? choiceButtons[0]
+            : choiceButtons[1];
+
+        correctBtn.style.opacity =
+          "1";
+
+        setTimeout(() => {
+
+          if (
+            currentQuestion <
+            lessons[currentLesson].length - 1
+          ) {
+
+            currentQuestion++;
+
+            updateQuestion();
+
+          }
+
+          else {
+
+            if (
+              currentLesson <
+              lessons.length - 1
+            ) {
+
+              currentLesson++;
+
+              currentQuestion = 0;
+
+              updateQuestion();
+
+            }
+
+            else {
+
+              completeLessonBtn.style.display =
+                "inline-block";
+
+            }
+
+          }
+
+        }, 1500);
+
+      }
+
+      else {
+
+        lessonStatus.textContent =
+          "✗ Try again!";
+
+        lessonStatus.style.color =
+          "#c0392b";
+
+        setTimeout(() => {
+
+          choiceButtons.forEach(btn =>
+            btn.classList.remove(
+              "correct",
+              "wrong"
+            )
+          );
+
+          lessonStatus.textContent =
+            `Lesson ${currentLesson + 1}`;
+
+          lessonStatus.style.color =
+            "#3a8a1c";
+
+        }, 600);
+
+      }
+
+    }
+
+
+    // =========================================
+    // NEXT
+    // =========================================
+
+    function nextQuestion() {
+
+      if (
+        currentQuestion <
+        lessons[currentLesson].length - 1
+      ) {
+
+        currentQuestion++;
+
+        updateQuestion();
+
+      }
+
+    }
+
+
+    // =========================================
+    // PREVIOUS
+    // =========================================
+
+    function previousQuestion() {
+
+      if (currentQuestion > 0) {
+
+        currentQuestion--;
+
+        updateQuestion();
+
+      }
+
+    }
+
+
+    // =========================================
+    // START
+    // =========================================
+
+    updateQuestion();
+
+  </script>
+
+</body>
+</html>

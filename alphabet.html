@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Alphabet Lesson</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="css/alphabet.css">
+  <link rel="stylesheet" href="css/progress.css">
+
+</head>
+
+<body data-lesson-id="alphabet">
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">
+    Alphabet Learner Unlocked⭐! See it on the Achievements page.
+  </div>
+
+  <div class="lesson-container">
+
+    <button
+      class="close-btn"
+      onclick="window.location.href='dashboard.html'">
+      ✕
+    </button>
+
+    <div class="lesson-card">
+
+      <div class="letter-section">
+        <h1 id="letterDisplay">Aa</h1>
+      </div>
+
+      <div class="image-section">
+        <div class="image-placeholder">
+          <img id="lessonImage" src="" alt="">
+        </div>
+      </div>
+
+      <!-- AUDIO BUTTON -->
+      <button class="audio-btn" onclick="playSound()">
+        🔊
+      </button>
+
+      <div class="nav-buttons">
+
+        <button
+          class="back-btn"
+          id="backBtn"
+          onclick="previousLetter()">
+          ‹
+        </button>
+
+        <button
+          class="next-btn"
+          onclick="nextLetter()">
+          ›
+        </button>
+
+      </div>
+
+      <button
+        class="complete-btn"
+        id="completeLessonBtn"
+        style="display:none;"
+        onclick="showToast()">
+        Complete Lesson
+      </button>
+
+      <p class="lesson-status" id="lessonStatus"></p>
+
+    </div>
+
+  </div>
+
+  <script src="js/progress.js"></script>
+
+  <script>
+
+    const alphabetData = [
+
+      {
+        letter: "Aa",
+        image: "alphabet.photos/apple.png",
+        audio: "audio.alphabets/Apple.mp3"
+      },
+
+      {
+        letter: "Bb",
+        image: "alphabet.photos/ball.png",
+        audio: "audio.alphabets/Ball.mp3"
+      },
+
+      {
+        letter: "Cc",
+        image: "alphabet.photos/cat.png",
+        audio: "audio.alphabets/Cat.mp3"
+      },
+
+      {
+        letter: "Dd",
+        image: "alphabet.photos/dog.png",
+        audio: "audio.alphabets/Dog.mp3"
+      },
+
+      {
+        letter: "Ee",
+        image: "alphabet.photos/earth.png",
+        audio: "audio.alphabets/Earth.mp3"
+      },
+
+      {
+        letter: "Ff",
+        image: "alphabet.photos/flower.png",
+        audio: "audio.alphabets/Flower.mp3"
+      },
+
+      {
+        letter: "Gg",
+        image: "alphabet.photos/grapes.png",
+        audio: "audio.alphabets/Grapes.mp3"
+      },
+
+      {
+        letter: "Hh",
+        image: "alphabet.photos/hat.png",
+        audio: "audio.alphabets/Hat.mp3"
+      },
+
+      {
+        letter: "Ii",
+        image: "alphabet.photos/icecream.png",
+        audio: "audio.alphabets/Ice Cream.mp3"
+      },
+
+      {
+        letter: "Jj",
+        image: "alphabet.photos/jet.png",
+        audio: "audio.alphabets/Jet.mp3"
+      },
+
+      {
+        letter: "Kk",
+        image: "alphabet.photos/kangaroo.png",
+        audio: "audio.alphabets/Kangaroo.mp3"
+      },
+
+      {
+        letter: "Ll",
+        image: "alphabet.photos/lamp.png",
+        audio: "audio.alphabets/Lamp.mp3"
+      },
+
+      {
+        letter: "Mm",
+        image: "alphabet.photos/monkey.png",
+        audio: "audio.alphabets/Monkey.mp3"
+      },
+
+      {
+        letter: "Nn",
+        image: "alphabet.photos/notebook.png",
+        audio: "audio.alphabets/Notebook.mp3"
+      },
+
+      {
+        letter: "Oo",
+        image: "alphabet.photos/orange.png",
+        audio: "audio.alphabets/Orange.mp3"
+      },
+
+      {
+        letter: "Pp",
+        image: "alphabet.photos/panda.png",
+        audio: "audio.alphabets/Panda.mp3"
+      },
+
+      {
+        letter: "Qq",
+        image: "alphabet.photos/queen.png",
+        audio: "audio.alphabets/Queen.mp3"
+      },
+
+      {
+        letter: "Rr",
+        image: "alphabet.photos/rainbow.png",
+        audio: "audio.alphabets/Rainbow.mp3"
+      },
+
+      {
+        letter: "Ss",
+        image: "alphabet.photos/snake.png",
+        audio: "audio.alphabets/Snake.mp3"
+      },
+
+      {
+        letter: "Tt",
+        image: "alphabet.photos/tree.png",
+        audio: "audio.alphabets/Tree.mp3"
+      },
+
+      {
+        letter: "Uu",
+        image: "alphabet.photos/umbrella.png",
+        audio: "audio.alphabets/Umbrella.mp3"
+      },
+
+      {
+        letter: "Vv",
+        image: "alphabet.photos/van.png",
+        audio: "audio.alphabets/Van.mp3"
+      },
+
+      {
+        letter: "Ww",
+        image: "alphabet.photos/watch.png",
+        audio: "audio.alphabets/Watch.mp3"
+      },
+
+      {
+        letter: "Xx",
+        image: "alphabet.photos/xray.png",
+        audio: "audio.alphabets/X-ray.mp3"
+      },
+
+      {
+        letter: "Yy",
+        image: "alphabet.photos/yoyo.png",
+        audio: "audio.alphabets/Yo-yo.mp3"
+      },
+
+      {
+        letter: "Zz",
+        image: "alphabet.photos/zebra.png",
+        audio: "audio.alphabets/Zeba.mp3"
+      }
+
+    ];
+
+    const TOTAL = alphabetData.length;
+
+    let currentIndex = 0;
+
+    function updateLesson() {
+
+      document.getElementById("letterDisplay").textContent =
+        alphabetData[currentIndex].letter;
+
+      document.getElementById("lessonImage").src =
+        alphabetData[currentIndex].image;
+
+      document.getElementById("lessonImage").alt =
+        alphabetData[currentIndex].letter;
+
+      document.getElementById("backBtn").style.display =
+        currentIndex > 0
+          ? "flex"
+          : "none";
+
+      document.getElementById("completeLessonBtn").style.display =
+        currentIndex === TOTAL - 1
+          ? "inline-block"
+          : "none";
+    }
+
+    function playSound() {
+
+      const audio = new Audio(
+        alphabetData[currentIndex].audio
+      );
+
+      audio.play();
+    }
+
+    function nextLetter() {
+
+      if(currentIndex < TOTAL - 1){
+
+        currentIndex++;
+
+        updateLesson();
+      }
+    }
+
+    function previousLetter() {
+
+      if(currentIndex > 0){
+
+        currentIndex--;
+
+        updateLesson();
+      }
+    }
+
+    /* TOAST FUNCTION */
+
+    function showToast() {
+
+      const toast = document.getElementById("toast");
+
+      toast.classList.add("show");
+
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3000);
+
+    }
+
+    updateLesson();
+
+  </script>
+
+</body>
+</html>

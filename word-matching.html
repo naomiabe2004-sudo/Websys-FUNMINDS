@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FunMinds - Word Matching</title>
+  <link rel="stylesheet" href="css/word-matching.css">
+</head>
+<body>
+
+  <div class="main-container">
+
+    <button class="back-btn" onclick="window.location.href='exercises.html'">&#8592;</button>
+
+    <h1 class="title">Word Matching</h1>
+    <p class="subtitle">Match the word to its correct pair!</p>
+
+    <div class="game-area">
+
+      <!-- LEFT COLUMN -->
+      <div class="column" id="leftColumn"></div>
+
+      <!-- LINES CANVAS -->
+      <canvas id="lineCanvas"></canvas>
+
+      <!-- RIGHT COLUMN -->
+      <div class="column" id="rightColumn"></div>
+
+    </div>
+
+    <div class="bottom-bar">
+      <p class="score">Score: <span id="scoreDisplay">0</span> / <span id="totalDisplay">0</span></p>
+      <button class="reset-btn" onclick="resetGame()">&#8635; Reset</button>
+    </div>
+
+  </div>
+
+  <script>
+    const pairs = [
+      { left: "Dog",    right: "Animal"  },
+      { left: "Red",    right: "Color"   },
+      { left: "Apple",  right: "Fruit"   },
+      { left: "Run",    right: "Action"  },
+      { left: "Happy",  right: "Feeling" },
+      { left: "Rain",   right: "Weather" },
+    ];
+
+    let selected = null;
+    let matched = [];
+    let score = 0;
+
+    function shuffle(arr) {
+      return [...arr].sort(() => Math.random() - 0.5);
+    }
+
+    function buildGame() {
+      const leftCol  = document.getElementById('leftColumn');
+      const rightCol = document.getElementById('rightColumn');
+      leftCol.innerHTML  = '';
+      rightCol.innerHTML = '';
+
+      const leftItems  = shuffle(pairs.map(p => p.left));
+      const rightItems = shuffle(pairs.map(p => p.right));
+
+      leftItems.forEach(word => {
+        const btn = document.createElement('button');
+        btn.className   = 'word-btn left-btn';
+        btn.textContent = word;
+        btn.dataset.word = word;
+        btn.onclick = () => selectLeft(btn);
+        leftCol.appendChild(btn);
+      });
+
+      rightItems.forEach(word => {
+        const btn = document.createElement('button');
+        btn.className   = 'word-btn right-btn';
+        btn.textContent = word;
+        btn.dataset.word = word;
+        btn.onclick = () => selectRight(btn);
+        rightCol.appendChild(btn);
+      });
+
+      document.getElementById('totalDisplay').textContent = pairs.length;
+      document.getElementById('scoreDisplay').textContent = 0;
+      score = 0;
+      matched = [];
+      selected = null;
+      clearCanvas();
+    }
+
+    function selectLeft(btn) {
+      if (btn.classList.contains('matched')) return;
+      document.querySelectorAll('.left-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selected = btn;
+    }
+
+    function selectRight(btn) {
+      if (!selected) return;
+      if (btn.classList.contains('matched')) return;
+
+      const leftWord  = selected.dataset.word;
+      const rightWord = btn.dataset.word;
+
+      const pair = pairs.find(p => p.left === leftWord && p.right === rightWord);
+
+      if (pair) {
+        selected.classList.remove('selected');
+        selected.classList.add('matched');
+        btn.classList.add('matched');
+        matched.push({ left: selected, right: btn });
+        score++;
+        document.getElementById('scoreDisplay').textContent = score;
+        drawLines();
+        selected = null;
+
+        if (score === pairs.length) {
+          setTimeout(() => alert('🎉 Well done! You matched them all!'), 300);
+        }
+      } else {
+        selected.classList.add('wrong');
+        btn.classList.add('wrong');
+        setTimeout(() => {
+          selected.classList.remove('wrong', 'selected');
+          btn.classList.remove('wrong');
+          selected = null;
+        }, 600);
+      }
+    }
+
+    function drawLines() {
+      const canvas = document.getElementById('lineCanvas');
+      const ctx    = canvas.getContext('2d');
+      const area   = document.querySelector('.game-area');
+
+      canvas.width  = area.offsetWidth;
+      canvas.height = area.offsetHeight;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      matched.forEach(({ left, right }) => {
+        const lr = left.getBoundingClientRect();
+        const rr = right.getBoundingClientRect();
+        const ar = area.getBoundingClientRect();
+
+        const x1 = lr.right  - ar.left;
+        const y1 = lr.top    - ar.top  + lr.height / 2;
+        const x2 = rr.left   - ar.left;
+        const y2 = rr.top    - ar.top  + rr.height / 2;
+
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.strokeStyle = '#7ed957';
+        ctx.lineWidth   = 3;
+        ctx.stroke();
+      });
+    }
+
+    function clearCanvas() {
+      const canvas = document.getElementById('lineCanvas');
+      const ctx    = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function resetGame() {
+      buildGame();
+    }
+
+    window.addEventListener('resize', drawLines);
+    buildGame();
+  </script>
+
+</body>
+</html>

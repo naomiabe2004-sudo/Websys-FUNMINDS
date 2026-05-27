@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FunMinds - Lessons</title>
+    <link rel="stylesheet" href="css/lessons.css">
+</head>
+<body>
+
+    <div class="main-container">
+        <button class="back-btn" onclick="window.location.href='dashboard.html'">&#8592;</button>
+
+        <div class="lesson-grid">
+
+            <button class="lesson-card" onclick="openModal('Lesson 1: Study the Alphabet', 'alphabet.html')">
+                <div class="image-placeholder">
+                    <img src="lessons.photo/alphabet.png" alt="Alphabet" />
+                </div>
+                <h2>Alphabet</h2>
+            </button>
+
+            <button class="lesson-card" onclick="openModal('Lesson 2: Colors, Shape & Vocabulary', 'colors.html')">
+                <div class="image-placeholder">
+                    <img src="lessons.photo/colorsshape.png" alt="Colors, Shape & Vocabulary" />
+                </div>
+                <h2>Colors, Shape &amp; Vocabulary</h2>
+            </button>
+
+            <button class="lesson-card" onclick="openModal('Lesson 3: Phonics Practice', 'phonics.html')">
+                <div class="image-placeholder">
+                    <img src="lessons.photo/phonics.png" alt="Phonics" />
+                </div>
+                <h2>Phonics</h2>
+            </button>
+
+            <button class="lesson-card" onclick="openModal('Lesson 4: Reading & Understanding', 'reading.html')">
+                <div class="image-placeholder">
+                    <img src="lessons.photo/reading.png" alt="Reading & Understanding" />
+                </div>
+                <h2>Reading &amp; Understanding</h2>
+            </button>
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">&#10005;</button>
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <button class="modal-continue" id="modalContinue">Continue</button>
+        </div>
+    </div>
+
+    <script>
+        function openModal(title, page) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalContinue').onclick = function() {
+                window.location.href = page;
+            };
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+        }
+    </script>
+
+</body>
+</html>

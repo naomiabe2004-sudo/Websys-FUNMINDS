@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phonics Lesson</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="css/phonics.css" />
+
+</head>
+
+<body data-lesson-id="phonics">
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">
+    🔤 Phonics Master unlocked! See it on the Achievements page.
+  </div>
+
+  <div class="lesson-container">
+
+    <button
+      class="close-btn"
+      onclick="window.location.href='dashboard.html'">
+      ✕
+    </button>
+
+    <div class="lesson-card">
+
+      <div class="top-content">
+
+        <div class="word-section">
+          <h1 id="wordDisplay"></h1>
+        </div>
+
+        <div class="image-section">
+          <img id="phonicsImage" src="" alt="" style="display:none;">
+          <span id="imagePlaceholder">image</span>
+        </div>
+
+      </div>
+
+      <div class="bottom-content">
+
+        <div class="choices-container">
+
+          <button
+            class="choice-btn"
+            data-v="A"
+            data-sound="audio.vowels/A.mp3"
+            type="button">
+            A
+          </button>
+
+          <button
+            class="choice-btn"
+            data-v="E"
+            data-sound="audio.vowels/E.mp3"
+            type="button">
+            E
+          </button>
+
+          <button
+            class="choice-btn"
+            data-v="I"
+            data-sound="audio.vowels/I.mp3"
+            type="button">
+            I
+          </button>
+
+          <button
+            class="choice-btn"
+            data-v="O"
+            data-sound="audio.vowels/O.mp3"
+            type="button">
+            O
+          </button>
+
+          <button
+            class="choice-btn"
+            data-v="U"
+            data-sound="audio.vowels/U.mp3"
+            type="button">
+            U
+          </button>
+
+        </div>
+
+        <div class="nav-buttons">
+
+          <button
+            class="back-btn"
+            type="button"
+            onclick="prevWord()">
+            ‹
+          </button>
+
+          <button
+            class="next-btn"
+            type="button"
+            onclick="nextWord()">
+            ›
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div id="lessonStatus" class="lesson-status"></div>
+
+    <button
+      id="completeLessonBtn"
+      class="complete-btn"
+      type="button"
+      style="display:none;"
+      onclick="completeLesson()">
+      Complete Lesson
+    </button>
+
+  </div>
+
+  <script>
+
+    const phonicsData = [
+
+      {
+        word: 'C_T',
+        answer: 'A',
+        image: 'phonics.photos/cat.png'
+      },
+
+      {
+        word: 'L_G',
+        answer: 'E',
+        image: 'phonics.photos/leg.png'
+      },
+
+      {
+        word: 'CH_F',
+        answer: 'E',
+        image: 'phonics.photos/chef.png'
+      },
+
+      {
+        word: 'P_N',
+        answer: 'E',
+        image: 'phonics.photos/pen.png'
+      },
+
+    ];
+
+    let currentIndex = 0;
+
+    let locked = false;
+
+    const wordDisplay =
+      document.getElementById("wordDisplay");
+
+    const phonicsImage =
+      document.getElementById("phonicsImage");
+
+    const placeholder =
+      document.getElementById("imagePlaceholder");
+
+    const lessonStatus =
+      document.getElementById("lessonStatus");
+
+    const completeBtn =
+      document.getElementById("completeLessonBtn");
+
+    const choiceBtns =
+      document.querySelectorAll(".choice-btn");
+
+    const backBtn =
+      document.querySelector(".back-btn");
+
+    // 🔊 PLAY VOWEL SOUND ONLY
+
+    function playSound(src) {
+
+      const audio = new Audio(src);
+
+      audio.play().catch(() => {});
+
+    }
+
+    function playVowelSound(vowel) {
+
+      const btn =
+        document.querySelector(`.choice-btn[data-v="${vowel}"]`);
+
+      if (btn)
+        playSound(btn.dataset.sound);
+
+    }
+
+    function renderWord() {
+
+      const { word } = phonicsData[currentIndex];
+
+      let html = "";
+
+      for (let i = 0; i < word.length; i++) {
+
+        if (word[i] === '_') {
+
+          html += `<span class="blank" id="blankSpan">_</span>`;
+
+        } else {
+
+          html += `<span class="letter">${word[i]}</span>`;
+
+        }
+
+      }
+
+      wordDisplay.innerHTML = html;
+
+    }
+
+    function loadImage() {
+
+      phonicsImage.src = phonicsData[currentIndex].image;
+
+      phonicsImage.onload = () => {
+
+        phonicsImage.style.display = "block";
+
+        placeholder.style.display = "none";
+
+      };
+
+      phonicsImage.onerror = () => {
+
+        phonicsImage.style.display = "none";
+
+        placeholder.style.display = "block";
+
+      };
+
+    }
+
+    function updateCard() {
+
+      locked = false;
+
+      lessonStatus.textContent = "";
+
+      choiceBtns.forEach(btn => {
+
+        btn.classList.remove(
+          "correct",
+          "wrong",
+          "selected"
+        );
+
+        btn.style.opacity = "1";
+
+        btn.style.pointerEvents = "auto";
+
+      });
+
+      backBtn.style.display =
+        currentIndex > 0
+          ? "flex"
+          : "none";
+
+      renderWord();
+
+      loadImage();
+
+      completeBtn.style.display = "none";
+
+    }
+
+    function checkAnswer(selected) {
+
+      if (locked) return;
+
+      playVowelSound(selected);
+
+      const correct =
+        phonicsData[currentIndex].answer;
+
+      choiceBtns.forEach(btn =>
+        btn.classList.remove(
+          "correct",
+          "wrong",
+          "selected"
+        )
+      );
+
+      const clickedBtn =
+        document.querySelector(`.choice-btn[data-v="${selected}"]`);
+
+      clickedBtn.classList.add("selected");
+
+      if (selected === correct) {
+
+        clickedBtn.classList.add("correct");
+
+        const blank =
+          document.getElementById("blankSpan");
+
+        if (blank) {
+
+          blank.textContent = correct;
+
+          blank.classList.add("filled");
+
+        }
+
+        lessonStatus.textContent = "✓ Correct!";
+
+        lessonStatus.style.color = "#3a8a1c";
+
+        locked = true;
+
+        choiceBtns.forEach(btn => {
+
+          btn.style.opacity =
+            btn.dataset.v === selected
+              ? "1"
+              : "0.4";
+
+          btn.style.pointerEvents = "none";
+
+        });
+
+        if (currentIndex === phonicsData.length - 1) {
+
+          setTimeout(() => {
+
+            completeBtn.style.display =
+              "inline-block";
+
+          }, 1000);
+
+        } else {
+
+          setTimeout(nextWord, 1500);
+
+        }
+
+      } else {
+
+        clickedBtn.classList.add("wrong");
+
+        lessonStatus.textContent = "✗ Try again!";
+
+        lessonStatus.style.color = "#c0392b";
+
+        setTimeout(() => {
+
+          clickedBtn.classList.remove(
+            "wrong",
+            "selected"
+          );
+
+          lessonStatus.textContent = "";
+
+        }, 600);
+
+      }
+
+    }
+
+    choiceBtns.forEach(btn => {
+
+      btn.addEventListener(
+        "click",
+        () => checkAnswer(btn.dataset.v)
+      );
+
+    });
+
+    function nextWord() {
+
+      if (currentIndex < phonicsData.length - 1) {
+
+        currentIndex++;
+
+        updateCard();
+
+      }
+
+    }
+
+    function prevWord() {
+
+      if (currentIndex > 0) {
+
+        currentIndex--;
+
+        updateCard();
+
+      }
+
+    }
+
+    /* TOAST */
+
+    function showToast() {
+
+      const toast =
+        document.getElementById("toast");
+
+      toast.classList.add("visible");
+
+      setTimeout(() => {
+
+        toast.classList.remove("visible");
+
+      }, 3000);
+
+    }
+
+    /* SAVE PROGRESS */
+
+    function saveProgress() {
+
+      const currentUser =
+        localStorage.getItem("loggedInUser");
+
+      if (!currentUser) return;
+
+      const progressData =
+        JSON.parse(
+          localStorage.getItem("funmindsProgress") || "{}"
+        );
+
+      if (!progressData[currentUser]) {
+
+        progressData[currentUser] = {
+
+          lessons: {
+            alphabet: false,
+            colors: false,
+            phonics: false,
+            reading: false
+          },
+
+          lastUnlocked: null
+
+        };
+
+      }
+
+      progressData[currentUser].lessons["phonics"] = true;
+
+      progressData[currentUser].lastUnlocked = "phonics";
+
+      localStorage.setItem(
+        "funmindsProgress",
+        JSON.stringify(progressData)
+      );
+
+    }
+
+    /* COMPLETE LESSON */
+
+    function completeLesson() {
+
+      saveProgress();
+
+      showToast();
+
+      setTimeout(() => {
+
+        window.location.href = "dashboard.html";
+
+      }, 3500);
+
+    }
+
+    renderWord();
+
+    loadImage();
+
+    backBtn.style.display = "none";
+
+  </script>
+
+</body>
+</html>
